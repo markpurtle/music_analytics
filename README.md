@@ -15,10 +15,10 @@ These two projects were carried out so I could become familiar with how to use t
 
 
 Future work that I will carry out and upload to this repository is:
-*A comprehensive analysis of my listening history on Spotify over the past year (as this is the
+* A comprehensive analysis of my listening history on Spotify over the past year (as this is the
 longest period Spotify allows me to download of my own listening history)
 
-*An experiment on using machine learning for creating music listening suggestions when 
+* An experiment on using machine learning for creating music listening suggestions when 
 given a song
 
-*Finally, I would like to attempt to synthesize music using GANs.
+* Finally, I would like to attempt to synthesize music using GANs.
