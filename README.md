@@ -7,7 +7,7 @@ This repository contains a number a jupyter notebook files of music analytics pr
 ArcticMonkeysAnalytics.ipynb contains analysis on the audio properties of the Arctic Monkeys discography, such as valence, energy, danceability. Looking at
 how they have varied over time, from album to album
 
-Top100AlbumsAnalytics.ipynb contains analysis on the audio properties of best selling albums over time. Data of the best selling albums of each decade was 
+Best_Selling_Albums_Analytics.ipynb contains analysis on the audio properties of best selling albums over time. Data of the best selling albums of each decade was 
 scraped from Wikipedia pages and the Spotify API was used to gather audio features of these albums, which were then compared to see if they differed
 over time and if they gave any indication of what features typically make up a best selling album.
 
