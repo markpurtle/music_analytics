@@ -22,3 +22,12 @@ longest period Spotify allows me to download of my own listening history)
 given a song
 
 * Finally, I would like to attempt to synthesize music using GANs.
+
+# Python Web Scraper
+I have also included a script I wrote to create new album playlists each week based on the r/indieheads subreddit. 
+
+Every Friday new albums are released and people will post links to some of these albums in the subreddit. These posts can get lost within other posts on the forum so I created this script to extract the titles and artists of these albums and add the tracks to a Spotify playlist. I chose to only add albums with more than 50 upvotes as a "quality" filter to reduce the number of albums. 
+
+This script continuously updates one main playlist. When I scheduled this for my computer I did this daily to allow for albums to gain upvotes over a week and potentially be added to the playlist. An album can only be added to this playlist it if came out the previous Friday. Once the next Friday has been reached (where more albums will be released) the albums released on the previous Friday will no longer be included in updates, to keep the playlist fresh and not too long.
+
+So that albums released in previous weeks aren't forgotten if I didn't get to listen to them, every Thursday I create a new playlist that corresponds to the week that has occurred. This playlist is filled with all the albums that fit the criteria on that Thursday and will never be updated after.
