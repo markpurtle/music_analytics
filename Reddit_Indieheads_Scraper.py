@@ -30,7 +30,7 @@ reddit = praw.Reddit(client_id="",#Reddit Client ID
 #Change the weekday so that Friday corresponds to 0, Saturday correseponds
 #to 1, Sunday to 2, etc...
 if datetime.datetime.now().weekday() >=4:
-    day = datetime.datetime.now().weekday() -5
+    day = datetime.datetime.now().weekday() -4
 else:
     day = datetime.datetime.now().weekday() +3
 
@@ -55,15 +55,38 @@ for submission in subreddit.top("week",limit=150): #For the top 150 posts in the
         query_results=spotify.search(q=query , type='album')
         #If the album exists on Spotify extract all the track IDs from
         #it and add to a list
-        if len(query_results['albums']['items']) != 0:
+        if query_results['albums']['total'] == 1:
             uri=query_results['albums']['items'][0]['uri']
             tracks=spotify.album_tracks(uri)['items']
             for track in tracks:
                 songs_to_add.append(track['uri'])
-        
+        #If there are more than 1 query results, choose the most
+        #recently released album
+        if query_results['albums']['total'] > 1:
+            for i in range(query_results['albums']['total']):
+                max_release_date=datetime.datetime.strptime(
+                        query_results['albums']['items'][0]['release_date'],
+                        '%Y-%m-%d')
+                max_index=0
+                datetime_str=query_results['albums']['items'][i]['release_date']
+                current_release_date=datetime.datetime.strptime(datetime_str,'%Y-%m-%d')
+                if current_release_date > max_release_date:
+                    max_release_date=current_release_date
+                    max_index=i
+            uri=query_results['albums']['items'][max_index]['uri']
+            tracks=spotify.album_tracks(uri)['items']
+            for track in tracks:
+                songs_to_add.append(track['uri'])
+                
 #Update playlist with tracks from albums that fit the criteria
-sp.playlist_replace_items("",#Spotify playlist ID to add the tracks to
-                          songs_to_add)
+
+if len(songs_to_add)>100: #Spotify limit is 100 tracks so have to add in batches
+    sp.playlist_replace_items('', songs_to_add[:100])
+    for i in range(100,len(songs_to_add),100):
+        sp.playlist_add_items('', songs_to_add[i:i+100])
+else:
+    sp.playlist_replace_items('',#Spotify playlist ID to add the tracks to
+                              songs_to_add)
 
 #Every Thursday make a new playlist with all the albums that fit the criteria
 #for that past week
