@@ -94,5 +94,10 @@ if datetime.datetime.now().weekday() == 3:
     start_date_new=(datetime.datetime.now()-datetime.timedelta(6)).strftime("%d/%m/%Y")
     end_date_new=(datetime.datetime.now()).strftime("%d/%m/%Y")
     new_playlist=sp.user_playlist_create(username, name="Indieheads New Albums "+ start_date_new + " - " + end_date_new)
-    sp.playlist_replace_items(new_playlist['uri'], songs_to_add)
+    if len(songs_to_add)>100:
+        sp.playlist_replace_items(new_playlist['uri'], songs_to_add[:100])
+        for i in range(100,len(songs_to_add),100):
+            sp.playlist_add_items(new_playlist['uri'], songs_to_add[i:i+100])
+    else:
+        sp.playlist_replace_items(new_playlist['uri'], songs_to_add)
 
